@@ -36,10 +36,11 @@
         android:text="Plate Name Goes Here"
         android:textAlignment="textStart"
         android:textColor="#000"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        android:gravity="start" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/image_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
