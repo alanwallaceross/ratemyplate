@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray200"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgPlate"
+        android:layout_width="261dp"
+        android:layout_height="284dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:layout_marginBottom="380dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="444dp"
+        android:layout_marginBottom="265dp"
+        android:text="Plate name"
+        android:textAlignment="center"
+        android:textColor="#f24e86"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/txtCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="541dp"
+        android:layout_marginBottom="168dp"
+        android:text="Caption"
+        android:textAlignment="center"
+        android:textColor="#f24e86"
+        android:textSize="17sp" />
+</RelativeLayout>
