@@ -30,7 +30,7 @@
         tools:srcCompat="@drawable/foodpic" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/takePhoto"
         android:layout_width="137dp"
         android:layout_height="65dp"
         android:layout_marginStart="8dp"
@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.055" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/chooseImage"
         android:layout_width="135dp"
         android:layout_height="67dp"
         android:layout_marginStart="8dp"
@@ -68,7 +68,7 @@
         app:layout_constraintVertical_bias="0.259" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -88,7 +88,7 @@
         app:layout_constraintVertical_bias="0.594" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editCaptionText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -108,7 +108,7 @@
         app:layout_constraintVertical_bias="0.7" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/upload"
         android:layout_width="157dp"
         android:layout_height="74dp"
         android:layout_marginStart="8dp"

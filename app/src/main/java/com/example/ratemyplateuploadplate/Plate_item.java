@@ -41,7 +41,7 @@ public class Plate_item extends AppCompatActivity {
         Log.d(TAG,"setImage: setting the image and to widgets");
 
         // sets the text view
-        TextView name = findViewById(R.id.txtName);
+        TextView name = findViewById(R.id.image_name);
         name.setText(imageName);
 
         //set the image view
