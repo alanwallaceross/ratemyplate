@@ -37,4 +37,8 @@ public class MainActivity extends AppCompatActivity {
         };
         uploadButton.setOnClickListener(uploadListener);
     }
+
+    private void chooseImage(View view){
+
+    }
 }
