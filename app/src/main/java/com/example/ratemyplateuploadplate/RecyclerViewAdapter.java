@@ -2,6 +2,8 @@ package com.example.ratemyplateuploadplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,21 +23,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecyclerViewAdapter";
 
     // delcaration
-    private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<String> mImages = new ArrayList<>();
-    private Context mContext;
+    private ArrayList<String> imageNames = new ArrayList<>();
+    private ArrayList<String> imageCaptions = new ArrayList<>();
+    private ArrayList<Bitmap> images = new ArrayList<>();
+
+    private Context context;
 
 
     // constructor
-    public RecyclerViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImages, Context mContextl) {
-        this.mImageNames = mImageNames;
-        this.mImages = mImages;
-        this.mContext = mContextl;
+    public RecyclerViewAdapter(ArrayList<String> imageNames, ArrayList<String> imageCaptions, ArrayList<Bitmap> images, Context context) {
+        this.imageNames = imageNames;
+        this.imageCaptions = imageCaptions;
+        this.images = images;
+        this.context = context;
     }
 
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plate_list_element, parent, true);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plate_list_element, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -46,41 +51,44 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Log.d(TAG,"onBindViewHolder: called.");
 
         //gets the images, converts to bitmap, loads into holder
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImages.get(position))
-                .into(holder.image);
 
-        holder.imageName.setText(mImageNames.get(position));
+
+        holder.imageName.setText(imageNames.get(position));
+
+        holder.imageCaption.setText(imageCaptions.get(position));
+
+        holder.image.setImageBitmap(images.get(position));
 
         // user clicks on list in the list
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on:" + mImageNames.get(position));
-
-                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
-
-                //takes user to the item in the list they clicked on
-                Intent intent = new Intent(mContext, Plate_item.class);
-                intent.putExtra("image_url", mImages.get(position));
-                intent.putExtra("image_name", mImageNames.get(position));
-                mContext.startActivity(intent);
-            }
-        });
+//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "onClick: clicked on:" + imageNames.get(position));
+//
+//                Toast.makeText(context, imageNames.get(position), Toast.LENGTH_SHORT).show();
+//
+//                //takes user to the item in the list they clicked on
+//                Intent intent = new Intent(context, Plate_item.class);
+//                intent.putExtra("image", images.get(position));
+//                intent.putExtra("image_name", imageNames.get(position));
+//                intent.putExtra("image_caption", imageCaptions.get(position));
+//                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
 
         // return the list, without this, blank screen
-        return mImageNames.size();
+        return imageNames.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView image;
         TextView imageName;
+        TextView imageCaption;
+        CircleImageView image;
         RelativeLayout parentLayout;
 
 
@@ -88,6 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             image = itemView.findViewById(R.id.image);
             imageName = itemView.findViewById(R.id.image_name);
+            imageCaption = itemView.findViewById(R.id.image_caption);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }

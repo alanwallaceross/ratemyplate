@@ -16,15 +16,6 @@
         android:src="@mipmap/ic_launcher_round"
         tools:srcCompat="@drawable/foodpic" />
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/profile_image"-->
-        <!--android:layout_width="96dp"-->
-        <!--android:layout_height="96dp"-->
-        <!--android:src="@drawable/profile"-->
-        <!--app:civ_border_width="2dp"-->
-        <!--app:civ_border_color="#FF000000"/>-->
-
     <TextView
         android:id="@+id/image_name"
         android:layout_width="match_parent"
@@ -33,7 +24,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginTop="0dp"
         android:layout_toRightOf="@+id/image"
-        android:text="Plate Name Goes Here"
+        android:text="@string/plate_name_goes_here"
         android:textAlignment="textStart"
         android:textColor="#000"
         android:textSize="17sp"
@@ -49,7 +40,7 @@
         android:layout_marginTop="39dp"
         android:layout_toEndOf="@+id/image"
         android:layout_toRightOf="@+id/image"
-        android:text="Caption goes here"
+        android:text="@string/caption_goes_here"
         android:textColor="#000000"
         android:textSize="14sp" />
 
