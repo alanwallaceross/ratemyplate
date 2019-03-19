@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.gu.toolargetool.TooLargeTool;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             if(requestCode == REQUEST_CODE){
                 Bitmap bitmap = BitmapFactory.decodeFile(pathToFile);
                 Bitmap rotatedBm = getRotatedImage(bitmap, pathToFile);
-                Bitmap resizedBm = getResizedBitmap(rotatedBm, 2160, 2880);
+                Bitmap resizedBm = getResizedBitmap(rotatedBm, 300, 220);
                 imageView.setImageBitmap(resizedBm);
 
             }
@@ -155,8 +156,13 @@ public class MainActivity extends AppCompatActivity {
                 String absoluteImagePath = getImagePath(imageUri);
                 Bitmap bitmap = BitmapFactory.decodeFile(absoluteImagePath);
                 Bitmap rotatedBm = getRotatedImage(bitmap, absoluteImagePath);
-                Bitmap resizedBm = getResizedBitmap(rotatedBm, 2160, 2880);
+                Bitmap resizedBm = getResizedBitmap(rotatedBm, 300, 220);
                 imageView.setImageBitmap(resizedBm);
+//                Picasso
+//                        .with(this)
+//                        .load(String.valueOf(rotatedBm))
+//                        .fit()
+//                        .into(imageView);
 
 //                try {
 //                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);

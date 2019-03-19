@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 
 import com.google.gson.Gson;
@@ -48,6 +49,9 @@ public class Uploaded_Plates_List extends AppCompatActivity {
 //        saveData();
         // debugging
         Log.d(TAG, "onCreate: started");
+
+
+
 
 //        if (savedInstanceState != null){
 //            imageNames = savedInstanceState.getStringArrayList("image_names");
@@ -140,6 +144,18 @@ public class Uploaded_Plates_List extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(imageNames, imageCaptions, images, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ItemClickSupport.addTo(recyclerView)
+                .setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+
+
+                        return false;
+
+
+                    }
+                });
 
 
     }
