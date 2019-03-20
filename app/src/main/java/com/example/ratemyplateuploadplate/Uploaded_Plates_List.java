@@ -1,6 +1,7 @@
 package com.example.ratemyplateuploadplate;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -11,21 +12,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Uploaded_Plates_List extends AppCompatActivity {
     // for debugging
     private static final String TAG = "Uploaded_Plates_List";
+    private static final String imageNameFileName = "ImageNameFile";
+    private static final String imageCaptionFileName = "ImageCaptionFile";
+    private static final String imageFileName = "ImageFile";
 
     // variables
 
@@ -34,6 +42,7 @@ public class Uploaded_Plates_List extends AppCompatActivity {
     static private ArrayList<String> imageNames = new ArrayList<>();
     static private ArrayList<String> imageCaptions = new ArrayList<>();
     static private ArrayList<Bitmap> images = new ArrayList<>();
+    private RecyclerViewAdapter adapter;
 
 
     @Override
@@ -41,26 +50,45 @@ public class Uploaded_Plates_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_plates);
 
-//        loadData();
+//        loadData
+//        for(int i = 0; i < imageNames.size(); i++){
+//            imageNames.set(i, getSavedStringArrayList(imageNameFileName).get(i));
+//            imageCaptions.set(i, getSavedStringArrayList(imageCaptionFileName).get(i));
+//            images.set(i, getSavedImageArrayList(imageFileName).get(i));
+//
+//        }
 
         initRecyclerView();
         initImageBitmaps();
 
-//        saveData();
+
+//        saveData
+//        saveStringArrayList(imageNames, imageNameFileName);
+//        saveStringArrayList(imageCaptions, imageCaptionFileName);
+//        saveImageArrayList(images, imageFileName);
+
         // debugging
         Log.d(TAG, "onCreate: started");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(imageNames, imageCaptions, images, this){
+
+        };
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
-
-//        if (savedInstanceState != null){
-//            imageNames = savedInstanceState.getStringArrayList("image_names");
-//            imageCaptions = savedInstanceState.getStringArrayList("image_captions");
-//            images = savedInstanceState.getParcelableArrayList("images");
-//        }
+        if (savedInstanceState != null){
+            imageNames = savedInstanceState.getStringArrayList("image_names");
+            imageCaptions = savedInstanceState.getStringArrayList("image_captions");
+            images = savedInstanceState.getParcelableArrayList("images");
+        }
 
 
     }
+
+
 
     private void saveData(){
 //        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
@@ -73,18 +101,92 @@ public class Uploaded_Plates_List extends AppCompatActivity {
 //        editor.putString("image_caption_list", jsonCaptions);
 //        editor.putString("image_list", jsonImages);
 //        editor.apply();
-        String fileForNames = "fileForNames";
-        File file = new File(this.getFilesDir(), fileForNames);
-        FileOutputStream outputStream;
-        try{
-            outputStream = openFileOutput(fileForNames, Context.MODE_PRIVATE);
-            outputStream.write(imageNames.indexOf(0));
-        } catch (FileNotFoundException e) {
+//        String fileForNames = "fileForNames";
+//        File file = new File(this.getFilesDir(), fileForNames);
+//        FileOutputStream outputStream;
+//        try{
+//            outputStream = openFileOutput(fileForNames, Context.MODE_PRIVATE);
+//            for(int i = 0; i < imageNames.size(); i++){
+//                outputStream.write(imageNames.indexOf(0));
+//            }
+//            outputStream.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        String fileForCaptions = "fileForCaptions";
+//        File file1 = new File(this.getFilesDir(), fileForCaptions);
+//        FileOutputStream outputStream1;
+//        try{
+//            outputStream = openFileOutput(fileForCaptions, Context.MODE_PRIVATE);
+//            for(int i = 0; i < imageCaptions.size(); i++){
+//                outputStream1.write(imageCaptions.index);
+//            }
+//        }
+    }
+
+    private ArrayList<String> getSavedStringArrayList(String fileName) {
+        ArrayList<String> savedArrayList = null;
+
+        try {
+            FileInputStream inputStream = openFileInput(fileName);
+            ObjectInputStream in = new ObjectInputStream(inputStream);
+            savedArrayList = (ArrayList<String>) in.readObject();
+            in.close();
+            inputStream.close();
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        }
+
+        return savedArrayList;
+    }
+
+    private ArrayList<Bitmap> getSavedImageArrayList(String fileName) {
+        ArrayList<Bitmap> savedArrayList = null;
+
+        try {
+            FileInputStream inputStream = openFileInput(fileName);
+            ObjectInputStream in = new ObjectInputStream(inputStream);
+            savedArrayList = (ArrayList<Bitmap>) in.readObject();
+            in.close();
+            inputStream.close();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return savedArrayList;
+    }
+
+    private void saveStringArrayList(ArrayList<String> arrayList, String fileName) {
+        try {
+            FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+            out.writeObject(arrayList);
+            out.close();
+            fileOutputStream.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void saveImageArrayList(ArrayList<Bitmap> arrayList, String fileName) {
+        try {
+            FileOutputStream fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+            out.writeObject(arrayList);
+            out.close();
+            fileOutputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void loadData(){
 //        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
@@ -140,25 +242,12 @@ public class Uploaded_Plates_List extends AppCompatActivity {
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init RecyclerView");
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(imageNames, imageCaptions, images, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ItemClickSupport.addTo(recyclerView)
-                .setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
-
-
-                        return false;
-
-
-                    }
-                });
 
 
     }
+
+
 
 
 }
