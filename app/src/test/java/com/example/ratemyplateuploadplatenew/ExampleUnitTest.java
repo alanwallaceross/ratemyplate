@@ -1,4 +1,4 @@
-package com.example.ratemyplateuploadplate;
+package com.example.ratemyplateuploadplatenew;
 
 import org.junit.Test;
 

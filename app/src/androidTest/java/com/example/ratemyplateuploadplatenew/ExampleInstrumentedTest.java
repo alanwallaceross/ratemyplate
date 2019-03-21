@@ -1,4 +1,4 @@
-package com.example.ratemyplateuploadplate;
+package com.example.ratemyplateuploadplatenew;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

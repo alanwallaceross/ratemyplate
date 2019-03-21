@@ -1,4 +1,4 @@
-package com.example.ratemyplateuploadplate;
+package com.example.ratemyplateuploadplatenew;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

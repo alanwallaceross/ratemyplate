@@ -1,9 +1,6 @@
-package com.example.ratemyplateuploadplate;
+package com.example.ratemyplateuploadplatenew;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -11,21 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Uploaded_Plates_List extends AppCompatActivity {
@@ -43,6 +32,7 @@ public class Uploaded_Plates_List extends AppCompatActivity {
     static private ArrayList<String> imageCaptions = new ArrayList<>();
     static private ArrayList<Bitmap> images = new ArrayList<>();
     private RecyclerViewAdapter adapter;
+    static private PlateCollection plateCollection;
 
 
     @Override
@@ -88,6 +78,11 @@ public class Uploaded_Plates_List extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        PlateCollection.get(getApplication()).savePlates();
+    }
 
 
     private void saveData(){
@@ -210,21 +205,21 @@ public class Uploaded_Plates_List extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState){
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putStringArrayList("image_names", imageNames);
-        savedInstanceState.putStringArrayList("image_captions", imageCaptions);
-        savedInstanceState.putParcelableArrayList("images", images);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle savedInstanceState){
+//        super.onSaveInstanceState(savedInstanceState);
+//        savedInstanceState.putStringArrayList("image_names", imageNames);
+//        savedInstanceState.putStringArrayList("image_captions", imageCaptions);
+//        savedInstanceState.putParcelableArrayList("images", images);
+//    }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        imageNames = savedInstanceState.getStringArrayList("image_names");
-        imageCaptions = savedInstanceState.getStringArrayList("image_captions");
-        images = savedInstanceState.getParcelableArrayList("images");
-    }
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState){
+//        super.onRestoreInstanceState(savedInstanceState);
+//        imageNames = savedInstanceState.getStringArrayList("image_names");
+//        imageCaptions = savedInstanceState.getStringArrayList("image_captions");
+//        images = savedInstanceState.getParcelableArrayList("images");
+//    }
 
     protected void initImageBitmaps() {
         Log.d(TAG, "initImagesBitmaps: preparing bitmaps");
